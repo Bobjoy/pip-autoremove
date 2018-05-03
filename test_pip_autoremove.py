@@ -22,8 +22,8 @@ def test_find_all_dead():
 
 
 def install_dist(req):
-    pip.main(['install', req])
-    pip.logger.consumers = []
+    pip_autoremove.pip_main(['install', req])
+    pip_autoremove.pip_logger.consumers = []
 
 
 def has_dist(req):

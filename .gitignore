@@ -1,0 +1,4 @@
+__pycache__/
+build/
+dist/
+pip_autoremove.egg-info/

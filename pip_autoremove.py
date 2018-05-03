@@ -5,8 +5,18 @@ import optparse
 import pip
 from pkg_resources import working_set, get_distribution
 
+try:
+    from pip import main as pip_main
+except Exception:
+    from pip._internal import main as pip_main
 
-__version__ = '0.9.0'
+try:
+    from pip import logger as pip_logger
+except Exception:
+    from pip._internal import logger as pip_logger
+
+
+__version__ = '1.0.0'
 
 try:
     raw_input
@@ -15,6 +25,10 @@ except NameError:
 
 
 WHITELIST = ['pip', 'setuptools']
+
+
+pip_logger = pip_logger
+pip_main = pip_main
 
 
 def autoremove(names, yes=False):
@@ -80,10 +94,10 @@ def show_dist(dist):
 
 
 def remove_dist(dist):
-    pip.main(['uninstall', '-y', dist.project_name])
+    pip_main(['uninstall', '-y', dist.project_name])
     # Avoid duplicate output caused by pip.logger.consumers being configured
     # over and over again
-    pip.logger.consumers = []
+    pip_logger.consumers = []
 
 
 def get_graph():
